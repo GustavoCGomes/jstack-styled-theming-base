@@ -17,6 +17,7 @@ function App() {
     setTheme(prevState => prevState === 'dark' ? 'light' : 'dark');
   }
 
+
   return (
     <ThemeProvider theme={currentTheme}>
       <GlobalStyle />
