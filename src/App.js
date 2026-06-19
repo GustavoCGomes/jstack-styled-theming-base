@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { ThemeProvider } from 'styled-components';
 
 import GlobalStyle from './styles/global';
@@ -9,6 +9,8 @@ import themes from './styles/themes';
 function App() {
   const [theme, setTheme] = useState('dark');
 
+  let firstRender = useRef(true);
+
   const currentTheme = useMemo(() => {
     return themes[theme] || themes.dark;
   }, [theme]);
@@ -17,6 +19,14 @@ function App() {
     setTheme(prevState => prevState === 'dark' ? 'light' : 'dark');
   }
 
+  useEffect(() => {
+    if(firstRender.current) {
+      firstRender.current = false;
+      return;
+    }
+
+    console.debug({ theme })
+  }, [theme])
 
   return (
     <ThemeProvider theme={currentTheme}>
